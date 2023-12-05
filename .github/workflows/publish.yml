@@ -5,6 +5,10 @@ on:
     tags:
       - v*
 
+permissions: # This is required to allow the action to create releases
+  contents: write
+  packages: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -28,7 +32,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
+          release_name: Release ${{ github.ref_name }}
           draft: false
           prerelease: false
       - name: Upload Release Asset
